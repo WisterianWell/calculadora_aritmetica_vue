@@ -22,7 +22,6 @@ const calculaOperacoes = () => {
       return parseInt(numero1) / parseInt(numero2);
   }
 }
-
 </script>
 
 <template>
