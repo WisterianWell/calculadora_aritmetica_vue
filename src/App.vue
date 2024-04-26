@@ -1,47 +1,35 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { reactive } from 'vue';
+import Calculadora from './components/Calculadora.vue';
+
+const estado = reactive({
+  numero1: 0,
+  numero2: 0,
+  operacao: 'adicao',
+})
+
+const calculaOperacoes = () => {
+  const { numero1, numero2, operacao } = estado;
+
+  switch (operacao) {
+    case 'adicao':
+      return parseInt(numero1) + parseInt(numero2);
+    case 'subtracao':
+      return parseInt(numero1) - parseInt(numero2);
+    case 'multiplicacao':
+      return parseInt(numero1) * parseInt(numero2);
+    case 'divisao':
+      return parseInt(numero1) / parseInt(numero2);
+  }
+}
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="container p-5">
+    <Calculadora :get-numero1="evento => estado.numero1 = evento.target.value" :get-numero2="evento => estado.numero2 = evento.target.value" :trocarOperacao="evento => estado.operacao = evento.target.value" :calculaOperacoes=" calculaOperacoes()"/>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
